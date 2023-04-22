@@ -60,5 +60,32 @@ public class FirstFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_firstFragment_to_thirdFragment,
                     arguments);
         });
+
+        btnForNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNotification("Example Name", "You added the ITEM to your favorites");
+            }
+        });
+    }
+
+    private void showNotification(String name, String text) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireActivity(), CHANNEL_ID)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentTitle(name)
+                .setContentText(text)
+                .setSmallIcon(R.mipmap.ic_launcher_round);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(requireActivity());
+        if (ActivityCompat.checkSelfPermission(requireActivity(),  android.Manifest.permission.
+                POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions();
+        }
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(requireActivity(), new String[]{ android.Manifest.permission.
+                POST_NOTIFICATIONS }, 1);
     }
 }
