@@ -1,4 +1,4 @@
-package com.corylab.task5;
+package com.corylab.task5.ui.fragments;
 
 import android.os.Bundle;
 

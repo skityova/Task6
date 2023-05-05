@@ -1,27 +1,21 @@
-package com.corylab.task5;
+package com.corylab.task5.ui.fragments;
 
-import static androidx.core.content.ContextCompat.getSystemService;
+import static com.corylab.task5.ui.activities.MainActivity.CHANNEL_ID;
 
-import static com.corylab.task5.MainActivity.CHANNEL_ID;
-
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
+import com.corylab.task5.R;
 import com.corylab.task5.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
@@ -39,7 +33,6 @@ public class FirstFragment extends Fragment {
         return binding.getRoot();
     }
 
-    
     @Override
     public void onViewCreated(View view, Bundle savedInstance) {
         Button btn1 = binding.btn1;
