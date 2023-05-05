@@ -17,9 +17,12 @@ public class ItemsViewModel extends ViewModel {
     private LiveData<List<Item>> itemsLive;
     private ItemsRepository itemsRepository;
 
+    private SharedPreferences sharedPreferences;
 
-    public void init(Context context) {
+
+    public void init(Context context, SharedPreferences sharedPrefs) {
         this.context = context;
+        this.sharedPreferences = sharedPrefs;
         itemsRepository = new ItemsRepository();
         itemsLive = itemsRepository.getRandomData();
     }
@@ -30,6 +33,8 @@ public class ItemsViewModel extends ViewModel {
 
     public void addTextBlock(Item textBlock) {
         itemsRepository.saveToFile("test", textBlock.getText(), context);
+        itemsRepository.saveToFileExternalStorage("test", textBlock.getText(), context);
+        itemsRepository.saveToFileSharedStorage("test", textBlock.getText(), sharedPreferences);
         itemsRepository.addTextBlock(textBlock);
     }
 

@@ -3,7 +3,9 @@ package com.corylab.task5.ui.fragments;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +26,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.corylab.task5.R;
 import com.corylab.task5.databinding.FragmentSecondBinding;
 import com.corylab.task5.ui.adapters.ItemsViewAdapter;
 import com.corylab.task5.ui.viewmodels.ItemsViewModel;
@@ -37,8 +40,11 @@ public class SecondFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPrefs = requireActivity().getSharedPreferences(
+                getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
         itemsViewModel = new ViewModelProvider(this).get(ItemsViewModel.class);
-        itemsViewModel.init(requireActivity().getApplicationContext());
+        itemsViewModel.init(requireActivity().getApplicationContext(), sharedPrefs);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!checkPermission()) {
                 requestPermission();

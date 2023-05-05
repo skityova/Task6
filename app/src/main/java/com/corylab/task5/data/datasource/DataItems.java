@@ -1,6 +1,7 @@
 package com.corylab.task5.data.datasource;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 
@@ -51,5 +52,10 @@ public class DataItems {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveToFileSharedStorage(String key, String data, SharedPreferences sharedPreferences) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, data).apply();
     }
 }

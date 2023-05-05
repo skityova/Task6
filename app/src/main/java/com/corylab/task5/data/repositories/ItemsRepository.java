@@ -1,6 +1,7 @@
 package com.corylab.task5.data.repositories;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -48,5 +49,9 @@ public class ItemsRepository {
 
     public void saveToFileExternalStorage(String fileName, String data, Context context) {
         DataItems.saveToFileExternalStorage(fileName, data, context);
+    }
+
+    public void saveToFileSharedStorage(String key, String data, SharedPreferences sharedPreferences) {
+        DataItems.saveToFileSharedStorage(key, data, sharedPreferences);
     }
 }
