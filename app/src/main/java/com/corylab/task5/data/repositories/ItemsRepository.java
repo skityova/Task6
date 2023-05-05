@@ -45,4 +45,8 @@ public class ItemsRepository {
     public void saveToFile(String fileName, String data, Context context) {
         DataItems.saveToFile(fileName, data, context);
     }
+
+    public void saveToFileExternalStorage(String fileName, String data, Context context) {
+        DataItems.saveToFileExternalStorage(fileName, data, context);
+    }
 }

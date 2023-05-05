@@ -1,6 +1,8 @@
 package com.corylab.task5.data.datasource;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -31,6 +33,21 @@ public class DataItems {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(data.getBytes());
             fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveToFileExternalStorage(String fileName, String data, Context context) {
+        String type = Environment.DIRECTORY_DOWNLOADS;
+        File file = new File(Environment.getExternalStoragePublicDirectory(type), fileName + ".txt");
+
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(data.getBytes());
+            fos.close();
+            Log.i("test", String.valueOf(file));
         } catch (IOException e) {
             e.printStackTrace();
         }
