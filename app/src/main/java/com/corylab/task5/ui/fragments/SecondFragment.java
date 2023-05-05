@@ -27,6 +27,7 @@ public class SecondFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemsViewModel = new ViewModelProvider(this).get(ItemsViewModel.class);
+        itemsViewModel.init(requireActivity().getApplicationContext());
     }
 
     @Override

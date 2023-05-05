@@ -1,5 +1,7 @@
 package com.corylab.task5.data.repositories;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -38,5 +40,9 @@ public class ItemsRepository {
 
     public LiveData<List<Item>> getRandomData() {
         return DataItems.createList();
+    }
+
+    public void saveToFile(String fileName, String data, Context context) {
+        DataItems.saveToFile(fileName, data, context);
     }
 }
