@@ -39,6 +39,7 @@ public class FirstFragment extends Fragment {
         return binding.getRoot();
     }
 
+    
     @Override
     public void onViewCreated(View view, Bundle savedInstance) {
         Button btn1 = binding.btn1;
