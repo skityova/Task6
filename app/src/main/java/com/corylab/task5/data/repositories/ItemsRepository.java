@@ -4,39 +4,39 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
+import com.corylab.task5.data.database.EntityItem;
+import com.corylab.task5.data.database.ItemDatabase;
 import com.corylab.task5.data.datasource.DataItems;
 import com.corylab.task5.data.model.Item;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemsRepository {
-    private List<Item> textBlocks;
+    ItemDatabase databaseSource;
 
-    private final MutableLiveData<List<Item>> textBlocksLive = new MutableLiveData<>();
 
-    public ItemsRepository() {
-        textBlocks = new ArrayList<>();
-        textBlocks.add(new Item("example_text_1"));
-        textBlocks.add(new Item("example_text_2"));
-        textBlocks.add(new Item("example_text_3"));
-        textBlocksLive.setValue(textBlocks);
+    public ItemsRepository(Context context) {
+        databaseSource = ItemDatabase.getDatabase(context);
     }
 
     public void addTextBlock(Item textBlock) {
-        textBlocks.add(textBlock);
-        textBlocksLive.setValue(textBlocks);
+        ItemDatabase.databaseWriteExecutor.execute(() -> {
+            databaseSource.itemDao().insert(new EntityItem(textBlock.getText()));
+        });
     }
 
-    public void removeTextBlock(Item textBlock) {
-        textBlocks.remove(textBlock);
-        textBlocksLive.setValue(textBlocks);
+    public void removeTextBlock() {
+        databaseSource.itemDao().deleteAll();
     }
 
     public LiveData<List<Item>> getTextBlocksLive() {
-        return textBlocksLive;
+        return Transformations.map(
+                databaseSource.itemDao().getAll(),
+                (values) -> values.stream().map(EntityItem::toDomainModel).collect(Collectors.toList())
+        );
     }
 
     public LiveData<List<Item>> getRandomData() {

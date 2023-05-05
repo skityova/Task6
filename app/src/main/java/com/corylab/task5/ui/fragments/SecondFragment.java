@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.corylab.task5.R;
+import com.corylab.task5.data.model.Item;
 import com.corylab.task5.databinding.FragmentSecondBinding;
 import com.corylab.task5.ui.adapters.ItemsViewAdapter;
 import com.corylab.task5.ui.viewmodels.ItemsViewModel;
@@ -84,6 +85,15 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+
+        binding.addTextBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Item comment = new Item("test_text_comment");
+                itemsViewModel.addTextBlock(comment);
+            }
+        });
+
         return binding.getRoot();
     }
 

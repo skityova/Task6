@@ -23,8 +23,8 @@ public class ItemsViewModel extends ViewModel {
     public void init(Context context, SharedPreferences sharedPrefs) {
         this.context = context;
         this.sharedPreferences = sharedPrefs;
-        itemsRepository = new ItemsRepository();
-        itemsLive = itemsRepository.getRandomData();
+        itemsRepository = new ItemsRepository(context);
+        itemsLive = itemsRepository.getTextBlocksLive();
     }
 
     public LiveData<List<Item>> getTextBlocks() {
@@ -36,9 +36,5 @@ public class ItemsViewModel extends ViewModel {
         itemsRepository.saveToFileExternalStorage("test", textBlock.getText(), context);
         itemsRepository.saveToFileSharedStorage("test", textBlock.getText(), sharedPreferences);
         itemsRepository.addTextBlock(textBlock);
-    }
-
-    public void removeTextBlock(Item textBlock) {
-        itemsRepository.removeTextBlock(textBlock);
     }
 }
